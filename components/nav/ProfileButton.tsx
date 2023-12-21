@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 
 const ProfileButton = () => {
 	const user = useUser((state) => state.user);
-	const setUser = useUser(state=>state.setUser)
+	const setUser = useUser((state) => state.setUser);
 
 	const supabase = createBrowserClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -20,8 +20,10 @@ const ProfileButton = () => {
 	const handleLogout = async () => {
 		await supabase.auth.signOut();
 
-		setUser(undefined)
+		setUser(undefined);
 	};
+
+	const isAdmin = user?.user_metadata?.role === "admin";
 
 	return (
 		<Popover>
@@ -35,26 +37,27 @@ const ProfileButton = () => {
 				/>
 			</PopoverTrigger>
 
-			<PopoverContent className="px-2 pt-4 pb-2 space-y-3 divide-y">
-				<div className="px-4 text-sm">
+			<PopoverContent className="px-2 pt-4 pb-2 divide-y">
+				<div className="px-4 text-sm mb-4">
 					<p className="">{user?.user_metadata.user_name}</p>
 					<p className="text-gray-500">{user?.user_metadata.email}</p>
 				</div>
 
-				<Link href="/dashboard" className="block">
-					<Button
-						variant="ghost"
-						className="w-full flex items-center justify-between"
-					>
-						Dashboard
-						<DashboardIcon />
-					</Button>
-				</Link>
+				{isAdmin && (
+					<Link href="/dashboard" className="block">
+						<Button
+							variant="ghost"
+							className="w-full flex items-center justify-between"
+						>
+							Dashboard
+							<DashboardIcon />
+						</Button>
+					</Link>
+				)}
 
 				<Button
 					variant="ghost"
 					className="w-full flex items-center justify-between"
-
 					onClick={handleLogout}
 				>
 					Logout
