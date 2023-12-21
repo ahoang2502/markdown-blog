@@ -27,7 +27,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<main className="max-w-7xl mx-auto px-10 pt-6 pb-10 space-y-5">
+					<main className="max-w-7xl mx-auto px-10 pt-6 pb-10 space-y-10">
 						<Navbar />
 						{children}
 					</main>
