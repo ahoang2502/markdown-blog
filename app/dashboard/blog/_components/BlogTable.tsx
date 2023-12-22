@@ -4,6 +4,7 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { readBlog } from "@/lib/actions/blog";
+import DeleteAlert from "@/app/dashboard/blog/_components/DeleteAlert";
 
 const BlogTable = async () => {
 	const { data: blogs } = await readBlog();
@@ -24,7 +25,7 @@ const BlogTable = async () => {
 						<Switch checked={blog.is_premium} />
 						<Switch checked={blog.is_published} />
 
-						<Actions />
+						<Actions id={blog.id} />
 					</div>
 				))}
 			</div>
@@ -32,7 +33,7 @@ const BlogTable = async () => {
 	);
 };
 
-const Actions = () => (
+const Actions = ({ id }: { id: string }) => (
 	<div className="flex items-center gap-2 flex-wrap md:flex-row">
 		<Button className="flex items-center gap-2" variant="outline">
 			<EyeOpenIcon />
@@ -42,10 +43,7 @@ const Actions = () => (
 			<Pencil1Icon />
 			Edit
 		</Button>
-		<Button className="flex items-center gap-2 text-rose-500" variant='outline'>
-			<TrashIcon />
-			Delete
-		</Button>
+		<DeleteAlert blogId={id} />
 	</div>
 );
 

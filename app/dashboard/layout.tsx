@@ -1,5 +1,5 @@
 import React from "react";
-import NavLinks from "./_components/NavLinks";
+import NavLinks from "./blog/_components/NavLinks";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 	return (

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import React from "react";
-import BlogTable from "./_components/BlogTable";
+import BlogTable from "./blog/_components/BlogTable";
 
 const DashboardPage = () => {
 	return (

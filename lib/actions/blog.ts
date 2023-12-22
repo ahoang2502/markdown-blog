@@ -5,6 +5,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 import { Database } from "../types/supabase";
+import { revalidatePath } from "next/cache";
 
 const cookieStore = cookies();
 
@@ -19,6 +20,8 @@ const supabase = createServerClient<Database>(
 		},
 	}
 );
+
+const DASHBOARD = "/dashboard";
 
 export async function createBlog(data: BlogFormSchemaType) {
 	const { ["content"]: excludedKey, ...blog } = data;
@@ -45,4 +48,12 @@ export async function readBlog() {
 		.from("blog")
 		.select("*")
 		.order("created_at", { ascending: true });
+}
+
+export async function deleteBlogById(blogId: string) {
+	const result = await supabase.from("blog").delete().eq("id", blogId);
+
+	revalidatePath(DASHBOARD);
+
+	return JSON.stringify(result);
 }

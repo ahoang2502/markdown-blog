@@ -26,7 +26,7 @@ import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
-import { BlogFormSchemaType, blogFormSchema } from "../schema";
+import { BlogFormSchemaType, blogFormSchema } from "../../schema";
 
 const BlogForm = ({
 	onHandleSubmit,

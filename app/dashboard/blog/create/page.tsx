@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import BlogForm from "../../_components/BlogForm";
+import BlogForm from "../_components/BlogForm";
 import { BlogFormSchemaType } from "../../schema";
 import { toast } from "@/components/ui/use-toast";
 import { createBlog } from "@/lib/actions/blog";
@@ -26,7 +26,7 @@ const BlogCreatePage = () => {
 			});
 		else {
 			toast({
-				title: `Blog ${data.title.toLowerCase()} successfully created!`,
+				title: `Blog "${data.title}" successfully created!`,
 			});
 
 			router.push("/dashboard");
