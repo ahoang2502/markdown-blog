@@ -10,38 +10,55 @@ import {
 	RocketIcon,
 	StarIcon,
 } from "@radix-ui/react-icons";
+import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 
-const formSchema = z.object({
-	title: z.string().min(2, {
-		message: "Title must be at least 2 characters.",
-	}),
-	image_url: z.string().url({
-		message: "Invalid URL.",
-	}),
-	content: z.string().min(2, {
-		message: "Content must be at least 2 characters.",
-	}),
-	is_published: z.boolean(),
-	is_premium: z.boolean(),
-});
+const formSchema = z
+	.object({
+		title: z.string().min(2, {
+			message: "Title must be at least 2 characters.",
+		}),
+		image_url: z.string().url({
+			message: "Invalid URL.",
+		}),
+		content: z.string().min(2, {
+			message: "Content must be at least 2 characters.",
+		}),
+		is_published: z.boolean(),
+		is_premium: z.boolean(),
+	})
+	.refine(
+		(data) => {
+			const image_url = data.image_url;
+
+			try {
+				const url = new URL(image_url);
+
+				return url.hostname === "images.unsplash.com";
+			} catch (error) {
+				return false;
+			}
+		},
+		{
+			message: "Currently we are only support images from unsplash",
+			path: ["image_url"],
+		}
+	);
 
 const CreateBlogPage = () => {
 	const [isPreview, setIsPreview] = useState(false);
@@ -64,15 +81,19 @@ const CreateBlogPage = () => {
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="w-full border space-y-6 rounded-md min-w-[500px]"
+				className="w-full border space-y-6 rounded-md pb-10"
 			>
 				<div className="p-5 flex items-center gap-5 flex-wrap justify-between border-b">
-					<div className=" flex gap-5 items-center">
+					<div className=" flex gap-5 items-center flex-wrap">
 						<span
 							role="button"
 							tabIndex={0}
 							className="flex items-center gap-2 border bg-zinc-100 hover:bg-zinc-100/80 p-2 rounded-md hover:ring-1 hover:ring-zinc-800 transition-all"
-							onClick={() => setIsPreview(!isPreview)}
+							onClick={() =>
+								setIsPreview(
+									!isPreview && !form.getFieldState("image_url").invalid
+								)
+							}
 						>
 							{isPreview ? (
 								<>
@@ -265,15 +286,16 @@ const CreateBlogPage = () => {
 
 									<div
 										className={cn(
-											"lg:px-10 ",
+											"overflow-y-auto",
 											isPreview
 												? "mx-auto w-full lg:w-4/5"
 												: "w-1/2 hidden lg:block"
 										)}
 									>
-										<h1 className="text-3xl font-medium ">
-											{form.getValues().title}
-										</h1>
+										<MarkdownPreview
+											className="text-3xl font-medium "
+											content={form.getValues().content}
+										/>
 									</div>
 								</div>
 							</FormControl>
