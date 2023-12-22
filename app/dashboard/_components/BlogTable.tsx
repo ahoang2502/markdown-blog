@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 const BlogTable = () => {
 	return (
 		<div className="overflow-x-auto">
-			<div className="border border-lime-700/60 bg-gradientLight rounded-md w-[900px] md:w-full">
-				<div className="grid grid-cols-5 p-5 text-black font-medium border-b border-b-lime-700/60">
+			<div className="bg-gradientLight rounded-md w-[900px] md:w-full shadow-lg">
+				<div className="grid grid-cols-5 p-5 text-black font-medium border-b-2 border-b-lime-500/60 ">
 					<h1 className="col-span-2">Title</h1>
 					<h1 className="">Premium</h1>
 					<h1 className="">Publish</h1>

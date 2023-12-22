@@ -18,7 +18,7 @@ module.exports = {
 		extend: {
 			backgroundImage: {
 				gradientLight:
-					"radial-gradient(76.33% 76.59% at 50.15% 6.06%, #84cc15 0%, #ffffff 100% )",
+					"radial-gradient(76.33% 76.59% at 50.15% 6.06%, #bfe485 0%, #ffffff 100% )",
 			},
 			height: { "70vh": "70vh" },
 			colors: {
