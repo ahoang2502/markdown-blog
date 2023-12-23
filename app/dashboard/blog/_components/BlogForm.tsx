@@ -27,11 +27,14 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 import { BlogFormSchemaType, blogFormSchema } from "../../schema";
+import { IBlogDetails } from "@/lib/types";
 
 const BlogForm = ({
 	onHandleSubmit,
+	blog,
 }: {
 	onHandleSubmit: (data: BlogFormSchemaType) => void;
+	blog?: IBlogDetails;
 }) => {
 	const [isPreview, setIsPreview] = useState(false);
 	const [isPending, startTransition] = useTransition();
@@ -40,11 +43,11 @@ const BlogForm = ({
 		mode: "all",
 		resolver: zodResolver(blogFormSchema),
 		defaultValues: {
-			title: "",
-			content: "",
-			image_url: "",
-			is_premium: false,
-			is_published: true,
+			title: blog?.title || "",
+			content: blog?.blog_content?.content || "",
+			image_url: blog?.image_url || "",
+			is_premium: blog?.is_premium || false,
+			is_published: blog?.is_published || true,
 		},
 	});
 

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { readBlog, updateBlogById } from "@/lib/actions/blog";
 import { BlogFormSchemaType } from "../../schema";
 import SwitchForm from "./SwitchForm";
+import Link from "next/link";
 
 const BlogTable = async () => {
 	const { data: blogs } = await readBlog();
@@ -57,10 +58,12 @@ const Actions = ({ id }: { id: string }) => (
 			<EyeOpenIcon />
 			View
 		</Button>
-		<Button className="flex items-center gap-2" variant="outline">
-			<Pencil1Icon />
-			Edit
-		</Button>
+		<Link href={`/dashboard/blog/edit/${id}`}>
+			<Button className="flex items-center gap-2" variant="outline">
+				<Pencil1Icon />
+				Edit
+			</Button>
+		</Link>
 		<DeleteAlert blogId={id} />
 	</div>
 );
