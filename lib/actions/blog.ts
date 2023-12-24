@@ -64,6 +64,7 @@ export async function deleteBlogById(blogId: string) {
 	const result = await supabase.from("blog").delete().eq("id", blogId);
 
 	revalidatePath(DASHBOARD);
+	revalidatePath("/blog/" + blogId);
 
 	return JSON.stringify(result);
 }
@@ -75,7 +76,7 @@ export async function updateBlogById(blogId: string, data: BlogFormSchemaType) {
 
 	revalidatePath(DASHBOARD);
 	revalidatePath("/blog/" + blogId);
-	
+
 	return JSON.stringify(result);
 }
 

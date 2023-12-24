@@ -7,6 +7,7 @@ import { PiTerminal } from "react-icons/pi";
 import { cn } from "@/lib/utils";
 import CopyButton from "./CopyButton";
 import { icons } from "@/lib/icons";
+import Image from "next/image";
 
 const MarkdownPreview = ({
 	content,
@@ -30,6 +31,9 @@ const MarkdownPreview = ({
 					<h1 {...props} className="text-xl font-bold" />
 				),
 				p: ({ node, ...props }) => <p {...props} className="text-base" />,
+				img: ({ node, ...props }) => (
+					<Image src="/images/image0.avif" alt="image" width={400} height={400} />
+				),
 				code: ({ node, className, children, ...props }) => {
 					const match = /language-(\w+)/.exec(className || "");
 

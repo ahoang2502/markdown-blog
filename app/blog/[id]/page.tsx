@@ -1,10 +1,12 @@
-import { IBlog } from "@/lib/types";
 import Image from "next/image";
 import React from "react";
 
-const BlogIdPage = async ({ params }: { params: { blogId: string } }) => {
+import { IBlog } from "@/lib/types";
+import BlogContent from "./_components/BlogContent";
+
+const BlogIdPage = async ({ params }: { params: { id: string } }) => {
 	const { data: blog } = (await fetch(
-		process.env.SITE_URL + "/api/blog?id=" + params.blogId
+		`${process.env.SITE_URL}/api/blog?id=${params.id}`
 	).then((res) => res.json())) as { data: IBlog };
 
 	if (!blog?.id) {
@@ -30,7 +32,8 @@ const BlogIdPage = async ({ params }: { params: { blogId: string } }) => {
 					priority
 				/>
 			</div>
-			{JSON.stringify(blog)}
+
+			<BlogContent blogId={blog.id} />
 		</div>
 	);
 };

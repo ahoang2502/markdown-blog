@@ -9,7 +9,7 @@ export default async function Home() {
 		<div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 p-5 xl:p-0">
 			{blogs?.map((blog, index) => (
 				<Link
-					href={"/blog" + blog.id}
+					href={"/blog/" + blog.id}
 					key={index}
 					className="w-full border rounded-md bg-neutral-100 p-5 hover:ring-2 ring-lime-500 transition-all cursor-pointer space-y-5 first:lg:col-span-2 first:md:col-span-3"
 				>
