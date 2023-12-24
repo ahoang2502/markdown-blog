@@ -2,17 +2,17 @@ import { EyeOpenIcon, Pencil1Icon } from "@radix-ui/react-icons";
 
 import DeleteAlert from "@/app/dashboard/blog/_components/DeleteAlert";
 import { Button } from "@/components/ui/button";
-import { readBlog, updateBlogById } from "@/lib/actions/blog";
+import { readBlogAdmin, updateBlogById } from "@/lib/actions/blog";
 import { BlogFormSchemaType } from "../../schema";
 import SwitchForm from "./SwitchForm";
 import Link from "next/link";
 
 const BlogTable = async () => {
-	const { data: blogs } = await readBlog();
+	const { data: blogs } = await readBlogAdmin();
 
 	return (
 		<div className="overflow-x-auto">
-			<div className="bg-neutral-100 rounded-md w-[900px] md:w-full shadow-lg">
+			<div className="bg-neutral-100 rounded-md sm:w-[900px] md:w-full shadow-lg">
 				<div className="grid grid-cols-5 p-5 text-black font-semibold border-b-2 border-b-lime-500/60 ">
 					<h1 className="col-span-2">Title</h1>
 					<h1 className="">Premium</h1>
