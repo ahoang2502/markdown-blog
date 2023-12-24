@@ -54,10 +54,12 @@ const BlogTable = async () => {
 
 const Actions = ({ id }: { id: string }) => (
 	<div className="flex items-center gap-2 flex-wrap md:flex-row">
-		<Button className="flex items-center gap-2" variant="outline">
-			<EyeOpenIcon />
-			View
-		</Button>
+		<Link href={`/blog/${id}`}>
+			<Button className="flex items-center gap-2" variant="outline">
+				<EyeOpenIcon />
+				View
+			</Button>
+		</Link>
 		<Link href={`/dashboard/blog/edit/${id}`}>
 			<Button className="flex items-center gap-2" variant="outline">
 				<Pencil1Icon />
