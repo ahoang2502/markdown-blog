@@ -6,7 +6,7 @@ import BlogContent from "./_components/BlogContent";
 
 export async function generateStaticParams() {
 	const { data: blog } = await fetch(
-		process.env.SITE_URL + "/api/blog?id=" + "*"
+		process.env.PROD_URL + "/api/blog?id=" + "*"
 	).then((res) => res.json());
 
 	return blog;
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
 	const { data: blog } = (await fetch(
-		process.env.SITE_URL + "/api/blog?id=" + params.id
+		process.env.PROD_URL + "/api/blog?id=" + params.id
 	).then((res) => res.json())) as { data: IBlog };
 
 	return {
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
 const BlogIdPage = async ({ params }: { params: { id: string } }) => {
 	const { data: blog } = (await fetch(
-		process.env.SITE_URL + "/api/blog?id=" + params.id
+		process.env.PROD_URL + "/api/blog?id=" + params.id
 	).then((res) => res.json())) as { data: IBlog };
 
 	if (!blog?.id) {
