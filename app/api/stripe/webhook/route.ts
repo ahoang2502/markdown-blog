@@ -3,9 +3,9 @@ import { headers } from "next/headers";
 import { buffer } from "stream/consumers";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.NEXT_STRIPE_PUBLIC_KEY!);
+const stripe = new Stripe(process.env.NEXT_STRIPE_PUBLIC_KEY !);
 
-const endpointSecret = process.env.NEXT_STRIPE_ENDPOINT_SECRET!;
+const endpointSecret = process.env.NEXT_STRIPE_ENDPOINT_SECRET !;
 
 export async function POST(request: any) {
 	const rawBody = await buffer(request.body);

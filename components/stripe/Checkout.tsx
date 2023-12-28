@@ -26,7 +26,7 @@ const Checkout = () => {
 				await checkout(user?.email!, location.origin + pathname)
 			);
 
-			const stripe = await loadStripe(`${process.env.NEXT_STRIPE_PUBLIC_KEY}`);
+			const stripe = await loadStripe(process.env.NEXT_STRIPE_PUBLIC_KEY !);
 			await stripe?.redirectToCheckout({ sessionId: data.id });
 		});
 	};
