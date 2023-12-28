@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 import { Database } from "@/lib/types/supabase";
 import BlogSkeleton from "./BlogSkeleton";
+import Checkout from "@/components/stripe/Checkout";
 
 const BlogContent = ({ blogId }: { blogId: string }) => {
 	const [blog, setBlog] = useState<{
@@ -21,7 +22,6 @@ const BlogContent = ({ blogId }: { blogId: string }) => {
 	);
 
 	const readBlogContent = async () => {
-		
 		const { data } = await supabase
 			.from("blog_content")
 			.select("*")
@@ -38,6 +38,8 @@ const BlogContent = ({ blogId }: { blogId: string }) => {
 	}, []);
 
 	if (isLoading) return <BlogSkeleton />;
+
+	if (!blog?.content) return <Checkout />;
 
 	return <MarkdownPreview content={blog?.content || ""} className="sm:px-10" />;
 };

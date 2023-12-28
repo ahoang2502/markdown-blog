@@ -7,6 +7,7 @@ import { DashboardIcon, LockClosedIcon } from "@radix-ui/react-icons";
 import { useUser } from "@/lib/store/user";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
+import ManageBilling from "../stripe/ManageBilling";
 
 const ProfileButton = () => {
 	const user = useUser((state) => state.user);
@@ -20,17 +21,18 @@ const ProfileButton = () => {
 	const handleLogout = async () => {
 		await supabase.auth.signOut();
 
-		setUser(undefined);
+		setUser(null);
 	};
 
-	const isAdmin = user?.user_metadata?.role === "admin";
+	const isAdmin = user?.role === "admin";
+	const isSubscribed = user?.description_status;
 
 	return (
 		<Popover>
 			<PopoverTrigger>
 				<Image
-					src={user?.user_metadata.avatar_url}
-					alt={user?.user_metadata.user_name}
+					src={user?.image_url || ""}
+					alt={user?.display_name || ""}
 					width={50}
 					height={50}
 					className="rounded-full ring-2 ring-lime-500"
@@ -39,8 +41,8 @@ const ProfileButton = () => {
 
 			<PopoverContent className="px-2 pt-4 pb-2 divide-y">
 				<div className="px-4 text-sm mb-4">
-					<p className="">{user?.user_metadata.user_name}</p>
-					<p className="text-gray-500">{user?.user_metadata.email}</p>
+					<p className="">{user?.display_name}</p>
+					<p className="text-gray-500">{user?.email}</p>
 				</div>
 
 				{isAdmin && (
@@ -54,6 +56,8 @@ const ProfileButton = () => {
 						</Button>
 					</Link>
 				)}
+
+				{isSubscribed && <ManageBilling />}
 
 				<Button
 					variant="ghost"
