@@ -31,7 +31,7 @@ const ManageBilling = () => {
 			>
 				<span className="flex items-center gap-2">
 					<AiOutlineLoading3Quarters
-						className={cn("animate-spin", { hidden: !isPending .})}
+						className={cn("animate-spin", { hidden: !isPending })}
 					/>
 					Billing
 				</span>

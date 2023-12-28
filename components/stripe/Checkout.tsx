@@ -23,7 +23,7 @@ const Checkout = () => {
 
 		startTransition(async () => {
 			const data = JSON.parse(
-				await checkout(user?.user_metadata?.email!, location.origin + pathname)
+				await checkout(user?.email!, location.origin + pathname)
 			);
 
 			const stripe = await loadStripe(`${process.env.NEXT_STRIPE_PUBLIC_KEY}`);
@@ -46,7 +46,7 @@ const Checkout = () => {
 			onSubmit={handleCheckout}
 		>
 			<Button className="bg-gradient-to-r from-blue-300 to-pink-400 flex flex-col py-10 px-6 gap-2 ring-2 hover:bg-gradient-to-r hover:from-blue-300/90 hover:to-pink-400/90">
-				<span className="flex flex-row items-center gap-2 text-2xl font-bold text-black ">
+				<h1 className="flex flex-row items-center gap-2 text-2xl font-bold text-black ">
 					<LightningBoltIcon
 						className={cn(
 							"w-5 h-5",
@@ -54,8 +54,8 @@ const Checkout = () => {
 						)}
 					/>
 					Upgrade to Premium
-				</span>
-				<span>Unblock all blog contents</span>
+				</h1>
+				<p className="text-sm">Unblock all blog contents</p>
 			</Button>
 		</form>
 	);
