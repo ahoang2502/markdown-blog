@@ -6,34 +6,34 @@ import React from "react";
 import { IBlog } from "@/lib/types";
 import BlogContent from "./_components/BlogContent";
 
-// export async function generateStaticParams() {
-// 	const { data: blog } = await fetch(
-// 		process.env.SITE_URL + "/api/blog?id=" + "*"
-// 	).then((res) => res.json());
+export async function generateStaticParams() {
+	const { data: blog } = await fetch(
+		process.env.SITE_URL + "/api/blog?id=" + "*"
+	).then((res) => res.json());
 
-// 	return blog;
-// }
+	return blog;
+}
 
-// export async function generateMetadata({ params }: { params: { id: string } }) {
-// 	const { data: blog } = (await fetch(
-// 		`${process.env.SITE_URL}/api/blog?id=${params.id}`
-// 	).then((res) => res.json())) as { data: IBlog };
+export async function generateMetadata({ params }: { params: { id: string } }) {
+	const { data: blog } = (await fetch(
+		`${process.env.SITE_URL}/api/blog?id=${params.id}`
+	).then((res) => res.json())) as { data: IBlog };
 
-// 	return {
-// 		title: blog?.title,
-// 		authors: {
-// 			name: "DailyBlog",
-// 		},
-// 		openGraph: {
-// 			title: blog?.title,
-// 			url: process.env.SITE_URL + "/blog/" + params.id,
-// 			siteName: "DailyBlog",
-// 			images: blog?.image_url,
-// 			type: "website",
-// 		},
-// 		keyword: ["DailyBlog", "React", "Nextjs"],
-// 	};
-// }
+	return {
+		title: blog?.title,
+		authors: {
+			name: "DailyBlog",
+		},
+		openGraph: {
+			title: blog?.title,
+			url: process.env.SITE_URL + "/blog/" + params.id,
+			siteName: "DailyBlog",
+			images: blog?.image_url,
+			type: "website",
+		},
+		keyword: ["DailyBlog", "React", "Nextjs"],
+	};
+}
 
 const BlogIdPage = async ({ params }: { params: { id: string } }) => {
 	const { data: blog } = (await fetch(

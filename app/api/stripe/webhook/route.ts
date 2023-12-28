@@ -66,7 +66,7 @@ export async function POST(request: any) {
 }
 
 const onSuccessSubscription = async (
-	subscription_status: boolean,
+	description_status: boolean,
 	stripe_subscription_id: string,
 	stripe_customer_id: string,
 	email: string
@@ -76,7 +76,7 @@ const onSuccessSubscription = async (
 	return await supabaseAdmin
 		.from("user")
 		.update({
-			subscription_status,
+			description_status,
 			stripe_subscription_id,
 			stripe_customer_id,
 		})
@@ -84,7 +84,7 @@ const onSuccessSubscription = async (
 };
 
 const onCancelSubscription = async (
-	subscription_status: boolean,
+	description_status: boolean,
 	sub_id: string
 ) => {
 	const supabaseAdmin = await createSupabaseAdmin();
@@ -92,7 +92,7 @@ const onCancelSubscription = async (
 	return await supabaseAdmin
 		.from("users")
 		.update({
-			subscription_status,
+			description_status,
 			stripe_subscription_id: null,
 			stripe_customer_id: null,
 		})
