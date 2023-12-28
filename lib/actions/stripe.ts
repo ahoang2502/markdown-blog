@@ -2,7 +2,7 @@
 
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!);
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
 
 export async function checkout(email: string, redirectTo: string) {
 	return JSON.stringify(
@@ -10,7 +10,7 @@ export async function checkout(email: string, redirectTo: string) {
 			success_url: redirectTo || process.env.SITE_URL,
 			cancel_url: process.env.SITE_URL,
 			customer_email: email,
-			line_items: [{ price: process.env.NEXT_PREMIUM_PRICE_ID, quantity: 1 }],
+			line_items: [{ price: process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID, quantity: 1 }],
 			mode: "subscription",
 		})
 	);
