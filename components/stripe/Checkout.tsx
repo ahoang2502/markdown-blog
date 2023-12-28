@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React, { useTransition } from "react";
+import React, { ChangeEvent, useTransition } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
 import { Button } from "../ui/button";
@@ -18,7 +18,7 @@ const Checkout = () => {
 
 	const pathname = usePathname();
 
-	const handleCheckout = (e: any) => {
+	const handleCheckout = (e: ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		startTransition(async () => {
@@ -26,12 +26,12 @@ const Checkout = () => {
 				await checkout(user?.email!, location.origin + pathname)
 			);
 
-			const stripe = await loadStripe(process.env.NEXT_STRIPE_PUBLIC_KEY !);
+			const stripe = await loadStripe(`${process.env.NEXT_STRIPE_PUBLIC_KEY}`);
 			await stripe?.redirectToCheckout({ sessionId: data.id });
 		});
 	};
 
-	if (!user?.id)
+	if (!user)
 		return (
 			<div className="flex items-center h-48 w-full justify-center gap-2">
 				<LoginForm /> to read.
@@ -41,7 +41,7 @@ const Checkout = () => {
 	return (
 		<form
 			className={cn("h-56 w-full flex items-center justify-center", {
-				"animate-spin": isPending,
+				"animate-pulse": isPending,
 			})}
 			onSubmit={handleCheckout}
 		>
@@ -49,7 +49,7 @@ const Checkout = () => {
 				<h1 className="flex flex-row items-center gap-2 text-2xl font-bold text-black ">
 					<LightningBoltIcon
 						className={cn(
-							"w-5 h-5",
+							"w-5 h-5 animate-bounce",
 							!isPending ? "animate-bounce" : "animate-spin"
 						)}
 					/>
